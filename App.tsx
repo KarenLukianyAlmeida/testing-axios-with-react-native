@@ -10,6 +10,7 @@ import {
 import ErrorMessage from "./components/ErrorMessage";
 import InfoCard from "./components/InfoCard";
 import { getCatImage } from "./services/catAPI";
+import Loading from "./components/Loading";
 
 export default function App() {
   const [infoCat, setInfoCat] = useState<string | null>(null);
@@ -50,12 +51,7 @@ export default function App() {
         <InfoCard imageUrl={infoCat} onLoad={handleImageLoad} />
       )}
 
-      {(loadingRequest || loadingImage) && (
-        <View style={styles.overlay}>
-          <ActivityIndicator size="large" color="#555" />
-          <Text>Carregando fofura...</Text>
-        </View>
-      )}
+      {(loadingRequest || loadingImage) && <Loading />}
 
       <View style={styles.button}>
         <Button title="CLICK ME!" onPress={fetchImage} />
@@ -71,13 +67,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flex: 1,
     backgroundColor: "#fff",
-  },
-  overlay: {
-    position: "absolute",
-    top: "40%",
-    left: 0,
-    right: 0,
-    alignItems: "center",
   },
   button: {
     marginTop: 16,
